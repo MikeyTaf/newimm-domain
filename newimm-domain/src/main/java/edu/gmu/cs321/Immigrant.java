@@ -1,4 +1,3 @@
-// File: src/main/java/edu/gmu/cs321/Immigrant.java
 package edu.gmu.cs321;
 
 import java.util.Date;
@@ -8,13 +7,13 @@ public class Immigrant extends Person {
     private String nationality;
     private String passportNumber;
 
-    // Constructor that calls the Person constructor
+    // Constructor
     public Immigrant(String personID, String firstName, String lastName, Date dob, String immigrantID, String nationality, String passportNumber) {
         
         super(personID, firstName, lastName, dob);  
         this.nationality = nationality;
         this.passportNumber = passportNumber;
-        
+
     }
 
     // Getters and setters
