@@ -49,4 +49,20 @@ public class Person {
     public void setDob(Date dob) {
         this.dob = dob;
     }
+
+
+    //Skeleton methods
+    public boolean createPerson() {
+        return false;
+    }
+
+
+    public boolean updatePerson() {
+        return false;
+    }
+
+
+    public Person getPerson(String personID) {
+        return null;
+    }
 }

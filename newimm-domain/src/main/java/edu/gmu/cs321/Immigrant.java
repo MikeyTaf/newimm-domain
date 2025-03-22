@@ -40,4 +40,17 @@ public class Immigrant extends Person {
     public void setPassportNumber(String passportNumber) {
         this.passportNumber = passportNumber;
     }
+
+    public boolean createImmigrant() {
+        return false;
+    }
+
+    public boolean updateImmigrant() {
+        return false;
+    }
+
+    public Immigrant getImmigrant(String immigrantID) {
+
+        return null;
+    }
 }
