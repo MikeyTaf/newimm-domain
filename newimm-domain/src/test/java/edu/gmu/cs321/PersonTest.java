@@ -6,33 +6,45 @@ import java.util.Date;
 
 public class PersonTest {
 
+    /*
+     * Tests to see if person can be created with a valid input
+     */
     @Test
-    void testCreatePerson_ValidInput() {
+    void testCreatePersonValidInput() {
 
-        Person person = new Person("P123", "John", "Doe", new Date());
+        Person person = new Person("P123", "Peter", "Parker", new Date());
         assertNotNull(person);
     }
 
+    /*
+     * Tests to see if null input throws exception
+     */
     @Test
-    void testCreatePerson_InvalidInput() {
+    void testCreatePersonInvalidInput() {
 
         assertThrows(IllegalArgumentException.class, () -> {
             new Person(null, "", "", null);
         });
     }
 
+    /*
+     * Tests to see if first name can be updated
+     */
     @Test
     void testUpdatePerson() {
 
-        Person person = new Person("P123", "John", "Doe", new Date());
-        person.setFirstName("Jane");
-        assertEquals("Jane", person.getFirstName());
+        Person person = new Person("P123", "Peter", "Parker", new Date());
+        person.setFirstName("Miles");
+        assertEquals("Miles", person.getFirstName());
     }
 
+    /*
+     * Tests to see if Person details can be retrieved
+     */
     @Test
     void testGetPersonDetails() {
 
-        Person person = new Person("P123", "John", "Doe", new Date());
-        assertEquals("John", person.getFirstName());
+        Person person = new Person("P123", "JPeter", "Parker", new Date());
+        assertEquals("Peter", person.getFirstName());
     }
 }

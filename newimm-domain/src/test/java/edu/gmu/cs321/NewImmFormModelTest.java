@@ -7,21 +7,30 @@ import java.util.Date;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+/*
+ * Test class for NewImmFormModel
+ * Tests NewFormModel class for creation, validation, dependent addition
+ */
 class NewImmFormModelTester {
     private NewImmFormModel form;
     private Immigrant immigrant;
     private List<Dependent> dependents;
 
+    /*
+     * Method to initialize the form, immigrant, and dependents before each test
+     */
     @BeforeEach
     void setUp() {
-        immigrant = new Immigrant("I12345", "Alice", "Johnson", new Date(), "IM56789", "Canadian", "P987654321");
+        immigrant = new Immigrant("I12345", "John", "Kratos", new Date(), "IM56789", "Spartan", "P987654321");
         dependents = new ArrayList<>();
-        dependents.add(new Dependent("D12345", "Bob", "Johnson", new Date(), "D67890", "Child", "P876543210"));
+        dependents.add(new Dependent("D12345", "Doom", "Guy", new Date(), "D67890", "Child", "P876543210"));
         
         form = new NewImmFormModel(immigrant, dependents, "F001", new Date());
     }
 
+    /*
+     * Test to verify that NewImmFormModel us created correctly
+     */
     @Test
     void testCreateFormWithValidData() {
         assertNotNull(form);
@@ -30,12 +39,18 @@ class NewImmFormModelTester {
         assertEquals(1, form.getDependents().size());
     }
 
+    /*
+     * Test for when form has a null immigrant
+     */
     @Test
     void testCreateFormWithNullImmigrant() {
         NewImmFormModel invalidForm = new NewImmFormModel(null, dependents, "F002", new Date());
         assertNull(invalidForm.getImmigrant());
     }
 
+    /*
+     * Test to see if dependent can be added to the form correctly
+     */
     @Test
     void testAddDependentValid() {
         Dependent newDependent = new Dependent("D54321", "Charlie", "Johnson", new Date(), "D54321", "Spouse", "P765432109");
@@ -45,12 +60,18 @@ class NewImmFormModelTester {
         assertTrue(form.getDependents().contains(newDependent));
     }
 
+    /*
+     * Test to see that adding a null dependent doesn't change the list
+     */
     @Test
     void testAddDependentNull() {
         form.addDependent(null);
         assertEquals(1, form.getDependents().size()); 
     }
 
+    /*
+     * Test to see if submission date can be updated correctly
+     */
     @Test
     void testUpdateSubmissionDate() {
         Date newDate = new Date();
