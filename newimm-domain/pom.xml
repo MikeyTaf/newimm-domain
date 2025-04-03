@@ -31,6 +31,13 @@
       <version>5.11.2</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>mysql.jdbc.connector</groupId>
+      <artifactId>JDBCConnector</artifactId>
+      <version>1.0</version>
+      <scope>system</scope>
+      <systemPath>${project.basedir}/lib/mysql-connector-j-8.4.0.jar</systemPath>
+    </dependency>
   </dependencies>
 
   <build>
