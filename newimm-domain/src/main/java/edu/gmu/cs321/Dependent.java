@@ -6,12 +6,26 @@ public class Dependent extends Person {
     private String dependentID;
     private String relationshipType;
     private String passportNumber;
+    private String immigrantID; // Added to link to the primary immigrant
 
-    public Dependent(String personID, String firstName, String lastName, Date dob, String dependentID, String relationshipType, String passportNumber) {
+    // Updated constructor to match what the controller is using
+    public Dependent(String personID, String firstName, String lastName, Date dob, 
+                     String dependentID, String relationshipType, String passportNumber, String immigrantID) {
         super(personID, firstName, lastName, dob);
         this.dependentID = dependentID;
         this.relationshipType = relationshipType;
         this.passportNumber = passportNumber;
+        this.immigrantID = immigrantID;
+    }
+
+    // Keep your original constructor for backward compatibility if needed
+    public Dependent(String personID, String firstName, String lastName, Date dob, 
+                     String dependentID, String relationshipType, String passportNumber) {
+        super(personID, firstName, lastName, dob);
+        this.dependentID = dependentID;
+        this.relationshipType = relationshipType;
+        this.passportNumber = passportNumber;
+        this.immigrantID = null; // Default to null
     }
 
     public String getDependentID() {
@@ -36,6 +50,14 @@ public class Dependent extends Person {
 
     public void setPassportNumber(String passportNumber) {
         this.passportNumber = passportNumber;
+    }
+    
+    public String getImmigrantID() {
+        return immigrantID;
+    }
+    
+    public void setImmigrantID(String immigrantID) {
+        this.immigrantID = immigrantID;
     }
 
     public boolean createDependent() {
