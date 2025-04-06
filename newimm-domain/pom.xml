@@ -68,7 +68,7 @@
         <artifactId>javafx-maven-plugin</artifactId>
         <version>0.0.8</version>
         <configuration>
-          <mainClass>edu.gmu.cs321.Main</mainClass>
+          <mainClass>edu.gmu.cs321.FormPreview</mainClass>
         </configuration>
       </plugin>
     </plugins>
