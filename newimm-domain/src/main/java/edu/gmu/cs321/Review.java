@@ -1,6 +1,9 @@
 package edu.gmu.cs321;
 
 import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 public class Review {
     private String reviewID;
@@ -68,14 +71,52 @@ public class Review {
     }
 
     public boolean createReview() {
-        return false;
+        try {
+            // Save to DataStore instead of database
+            DataStore.getInstance().saveReview(this);
+            
+            // Update workflow status
+            Workflow workflow = new Workflow(petitionID, approved ? "APPROVED" : "REJECTED");
+            workflow.updateStatus(approved ? "APPROVED" : "REJECTED");
+            
+            return true;
+        } catch (Exception e) {
+            System.err.println("Error creating review: " + e.getMessage());
+            return false;
+        }
     }
 
     public boolean updateReview() {
-        return false;
+        // In a real app, this would update the database
+        // For now, just update the in-memory store
+        return createReview();
     }
 
     public Review getReview(String reviewID) {
-        return null;
+        return DataStore.getInstance().getReview(reviewID);
+    }
+    
+    public static List<Review> getPendingReviews() {
+        List<Review> pendingReviews = new ArrayList<>();
+        List<String> pendingIDs = DataStore.getInstance().getPendingPetitionIDs();
+        
+        System.out.println("Getting pending reviews. Found " + pendingIDs.size() + " pending IDs");
+        
+        for (String petitionID : pendingIDs) {
+            System.out.println("Creating pending review for petition ID: " + petitionID);
+            
+            // Create placeholder Review objects for pending petitions
+            Review pendingReview = new Review(
+                UUID.randomUUID().toString(), // Generate a temp ID
+                petitionID,
+                null, // No reviewer assigned yet
+                null, // No review date yet
+                null, // No comments yet
+                false // Not approved yet
+            );
+            pendingReviews.add(pendingReview);
+        }
+        
+        return pendingReviews;
     }
 }

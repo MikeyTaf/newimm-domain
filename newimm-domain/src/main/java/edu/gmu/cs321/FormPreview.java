@@ -1,5 +1,7 @@
 package edu.gmu.cs321;
 
+import java.util.List;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -76,32 +78,57 @@ public class FormPreview extends Application {
     }
     
     /**
-     * Opens the Petition Detail view with mock data
+     * Opens the Petition Detail view with real data if available, or mock data if not
      */
     private void openPetitionDetail() {
         try {
+            // Try to get a real petition ID from DataStore
+            List<NewImmFormModel> allPetitions = DataStore.getInstance().getAllPetitions();
+            String petitionID = "MOCK-12345"; // Default to mock ID
+            
+            if (!allPetitions.isEmpty()) {
+                petitionID = allPetitions.get(0).getPetitionID();
+                System.out.println("Using real petition ID for preview: " + petitionID);
+            } else {
+                System.out.println("No petitions found in DataStore, using mock ID");
+            }
+            
             // Try multiple resource loading methods
             FXMLLoader loader = null;
+            Parent root = null;
+            
             try {
                 // Method 1
                 loader = new FXMLLoader(getClass().getResource("/edu/gmu/cs321/PetitionDetail.fxml"));
                 if (loader.getLocation() == null) throw new Exception("Method 1 failed");
+                root = loader.load();
             } catch (Exception ex1) {
                 try {
                     // Method 2
                     loader = new FXMLLoader(getClass().getResource("PetitionDetail.fxml"));
                     if (loader.getLocation() == null) throw new Exception("Method 2 failed");
+                    root = loader.load();
                 } catch (Exception ex2) {
-                    // Method 3
-                    loader = new FXMLLoader(FormPreview.class.getClassLoader().getResource("edu/gmu/cs321/PetitionDetail.fxml"));
+                    try {
+                        // Method 3
+                        loader = new FXMLLoader(FormPreview.class.getClassLoader().getResource("edu/gmu/cs321/PetitionDetail.fxml"));
+                        if (loader == null || loader.getLocation() == null) {
+                            throw new Exception("Could not find PetitionDetail.fxml");
+                        }
+                        root = loader.load();
+                    } catch (Exception ex3) {
+                        throw new Exception("Failed to load PetitionDetail.fxml: " + ex3.getMessage());
+                    }
                 }
             }
             
-            Parent root = loader.load();
+            if (loader == null || root == null) {
+                throw new Exception("Failed to load PetitionDetail.fxml");
+            }
             
-            // Initialize with mock data
+            // Initialize with data
             PetitionDetailController controller = loader.getController();
-            controller.loadPetition("MOCK-12345");
+            controller.loadPetition(petitionID);
             
             Stage stage = new Stage();
             stage.setTitle("Petition Detail");

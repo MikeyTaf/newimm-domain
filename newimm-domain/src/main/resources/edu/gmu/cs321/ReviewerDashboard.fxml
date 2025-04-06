@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox spacing="10" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" 
+      fx:controller="edu.gmu.cs321.ReviewerDashboardController">
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+    
+    <Label text="Petition Reviewer Dashboard" style="-fx-font-size: 18; -fx-font-weight: bold;"/>
+    
+    <!-- Petitions Table -->
+    <TableView fx:id="petitionsTable" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="petitionIdColumn" text="Petition ID" prefWidth="120"/>
+            <TableColumn fx:id="immigrantNameColumn" text="Immigrant Name" prefWidth="150"/>
+            <TableColumn fx:id="submissionDateColumn" text="Submission Date" prefWidth="120"/>
+            <TableColumn fx:id="statusColumn" text="Status" prefWidth="100"/>
+        </columns>
+    </TableView>
+    
+    <!-- Action Buttons -->
+    <HBox spacing="10" alignment="CENTER_RIGHT">
+        <Label fx:id="statusLabel"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button fx:id="refreshButton" text="Refresh" onAction="#handleRefresh"/>
+        <Button fx:id="viewButton" text="View Details" onAction="#handleView"/>
+    </HBox>
+</VBox>

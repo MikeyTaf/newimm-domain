@@ -54,26 +54,71 @@ public class PetitionDetailController {
     /**
      * Loads petition data based on petition ID
      */
+    
     public void loadPetition(String petitionID) {
         this.petitionID = petitionID;
         
-        // In a real application, this would load data from the database
-        // For now, we'll use mock data
+        System.out.println("PetitionDetailController: Loading petition with ID: " + petitionID);
         
-        // Set petition details
-        lblPetitionID.setText(petitionID);
-        lblSubmissionDate.setText("08/15/2023");
-        lblStatus.setText("SUBMITTED");
+        // Create a date formatter for MM/dd/yyyy format
+        java.text.SimpleDateFormat dateFormat = new java.text.SimpleDateFormat("MM/dd/yyyy");
         
-        // Set immigrant details
-        lblImmigrantName.setText("John Smith");
-        lblImmigrantDOB.setText("01/15/1980");
-        lblNationality.setText("Canada");
-        lblPassportNumber.setText("C1234567");
+        // Try to load the petition from DataStore
+        NewImmFormModel petition = DataStore.getInstance().getPetition(petitionID);
         
-        // Add mock dependents
-        addDependentToUI("Sarah Smith", "SPOUSE", "05/22/1982", "C7654321");
-        addDependentToUI("Michael Smith", "CHILD", "10/30/2010", "C8765432");
+        if (petition != null) {
+            System.out.println("PetitionDetailController: Found petition in DataStore");
+            
+            // Set petition details
+            lblPetitionID.setText(petitionID);
+            lblSubmissionDate.setText(dateFormat.format(petition.getSubmissionDate())); // Format date
+            lblStatus.setText(DataStore.getInstance().getPetitionStatus(petitionID));
+            
+            // Set immigrant details
+            Immigrant immigrant = petition.getImmigrant();
+            lblImmigrantName.setText(immigrant.getFirstName() + " " + immigrant.getLastName());
+            
+            // Format date of birth to remove time
+            String dobString = immigrant.getDob() != null ? dateFormat.format(immigrant.getDob()) : "N/A";
+            lblImmigrantDOB.setText(dobString);
+            
+            lblNationality.setText(immigrant.getNationality());
+            lblPassportNumber.setText(immigrant.getPassportNumber());
+            
+            // Clear any existing dependents
+            dependentsContainer.getChildren().clear();
+            
+            // Add dependents
+            for (Dependent dependent : petition.getDependents()) {
+                // Format dependent DOB to remove time
+                String dependentDobString = dependent.getDob() != null ? 
+                    dateFormat.format(dependent.getDob()) : "N/A";
+                    
+                addDependentToUI(
+                    dependent.getFirstName() + " " + dependent.getLastName(),
+                    dependent.getRelationshipType(),
+                    dependentDobString,
+                    dependent.getPassportNumber()
+                );
+            }
+        } else {
+            System.out.println("PetitionDetailController: Petition not found in DataStore, using mock data");
+            
+            // Set petition details with mock data
+            lblPetitionID.setText(petitionID);
+            lblSubmissionDate.setText("08/15/2023");
+            lblStatus.setText("SUBMITTED");
+            
+            // Set immigrant details
+            lblImmigrantName.setText("John Smith");
+            lblImmigrantDOB.setText("01/15/1980");
+            lblNationality.setText("Canada");
+            lblPassportNumber.setText("C1234567");
+            
+            // Add mock dependents
+            addDependentToUI("Sarah Smith", "SPOUSE", "05/22/1982", "C7654321");
+            addDependentToUI("Michael Smith", "CHILD", "10/30/2010", "C8765432");
+        }
     }
     
     /**
