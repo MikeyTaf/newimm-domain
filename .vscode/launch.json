@@ -6,11 +6,17 @@
     "configurations": [
         {
             "type": "java",
+            "name": "DatabaseConnectionTest",
+            "request": "launch",
+            "mainClass": "edu.gmu.cs321.DatabaseConnectionTest",
+            "projectName": "newimm-domain"
+        },
+        {
+            "type": "java",
             "name": "Launch Java Program",
             "request": "launch",
             "mainClass": "edu.gmu.cs321.FormPreview"
         },
-
         {
             "type": "java",
             "name": "Main",

@@ -96,10 +96,24 @@ public class Main extends Application {
             primaryStage.setScene(menuScene);
             primaryStage.show();
             
+            // Add a shutdown hook to close the workflow connection
+            Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+                System.out.println("Application shutting down, closing connections...");
+                DataStore.getInstance().cleanup();
+            }));
+            
         } catch (Exception e) {
             System.err.println("Error in start method: " + e.getMessage());
             e.printStackTrace();
         }
+    }
+    
+    @Override
+    public void stop() throws Exception {
+        // Ensure resources are cleaned up when the application stops
+        System.out.println("Application stopping, cleaning up resources...");
+        DataStore.getInstance().cleanup();
+        super.stop();
     }
     
     public static void main(String[] args) {

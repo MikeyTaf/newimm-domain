@@ -54,6 +54,13 @@
       <scope>system</scope>
       <systemPath>${project.basedir}/lib/mysql-connector-j-8.4.0.jar</systemPath>
     </dependency>
+    <dependency>
+      <groupId>com.cs321</groupId>
+      <artifactId>workflow</artifactId>
+      <version>1.0-SNAPSHOT</version>
+      <scope>system</scope>
+      <systemPath>${project.basedir}/lib/workflow-1.0-SNAPSHOT-jar-with-dependencies.jar</systemPath>
+    </dependency>
   </dependencies>
 
   <build>
@@ -68,7 +75,7 @@
         <artifactId>javafx-maven-plugin</artifactId>
         <version>0.0.8</version>
         <configuration>
-          <mainClass>edu.gmu.cs321.FormPreview</mainClass>
+          <mainClass>edu.gmu.cs321.Main</mainClass>
         </configuration>
       </plugin>
     </plugins>

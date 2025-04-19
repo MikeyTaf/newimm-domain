@@ -56,19 +56,17 @@ public class NewImmFormModel {
         dependents.add(dependent);
     }
 
-    
-
     public boolean submitForm() {
         try {
             System.out.println("Submitting petition with ID: " + petitionID);
-            
+
             // Print immigrant info for debugging
             System.out.println("Immigrant: " + immigrant.getFirstName() + " " + immigrant.getLastName());
             System.out.println("Dependents: " + dependents.size());
-            
+
             // Save to DataStore
             DataStore.getInstance().savePetition(this);
-            
+
             // Verify it was saved
             System.out.println("Checking if petition was saved...");
             NewImmFormModel savedPetition = DataStore.getInstance().getPetition(petitionID);
@@ -77,7 +75,7 @@ public class NewImmFormModel {
             } else {
                 System.out.println("ERROR: Petition was not saved!");
             }
-            
+
             return true;
         } catch (Exception e) {
             System.err.println("Error submitting form: " + e.getMessage());

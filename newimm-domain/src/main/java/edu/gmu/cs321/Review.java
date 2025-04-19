@@ -20,6 +20,9 @@ public class Review {
         this.reviewDate = reviewDate;
         this.reviewComments = reviewComments;
         this.approved = approved;
+        
+        // Automatically create the review when constructed
+        createReview();
     }
 
     public String getReviewID() {
@@ -72,13 +75,8 @@ public class Review {
 
     public boolean createReview() {
         try {
-            // Save to DataStore instead of database
+            // Save to DataStore
             DataStore.getInstance().saveReview(this);
-            
-            // Update workflow status
-            Workflow workflow = new Workflow(petitionID, approved ? "APPROVED" : "REJECTED");
-            workflow.updateStatus(approved ? "APPROVED" : "REJECTED");
-            
             return true;
         } catch (Exception e) {
             System.err.println("Error creating review: " + e.getMessage());

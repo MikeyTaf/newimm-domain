@@ -50,6 +50,8 @@ public class DataStore {
         Workflow workflow = workflows.get(review.getPetitionID());
         if (workflow != null) {
             workflow.setStatus(review.isApproved() ? "APPROVED" : "REJECTED");
+            // Call updateStatus to ensure the status is updated in the Workflow API
+            workflow.updateStatus(review.isApproved() ? "APPROVED" : "REJECTED");
             System.out.println("DataStore: Updated workflow status to " + workflow.getStatus());
         } else {
             System.out.println("DataStore: Warning - No workflow found for petition " + review.getPetitionID());
@@ -72,8 +74,9 @@ public class DataStore {
     
     public List<String> getPendingPetitionIDs() {
         List<String> pendingIDs = new ArrayList<>();
-        System.out.println("DataStore: Checking for pending petitions among " + workflows.size() + " workflows");
+        System.out.println("DataStore: Checking for pending petitions");
         
+        // First check our local workflows
         for (Map.Entry<String, Workflow> entry : workflows.entrySet()) {
             System.out.println("DataStore: Workflow " + entry.getKey() + " has status " + entry.getValue().getStatus());
             if ("SUBMITTED".equals(entry.getValue().getStatus())) {
@@ -81,6 +84,18 @@ public class DataStore {
                 System.out.println("DataStore: Added pending petition ID " + entry.getKey());
             }
         }
+        
+        // Then check the Workflow API for any additional pending items
+        String nextPetitionID = Workflow.getNextPetitionID("SUBMITTED");
+        while (nextPetitionID != null && !pendingIDs.contains(nextPetitionID)) {
+            // If this is a new petition ID we don't have locally, add it
+            pendingIDs.add(nextPetitionID);
+            System.out.println("DataStore: Added pending petition ID from API: " + nextPetitionID);
+            
+            // Try to get another one
+            nextPetitionID = Workflow.getNextPetitionID("SUBMITTED");
+        }
+        
         return pendingIDs;
     }
     
@@ -109,5 +124,10 @@ public class DataStore {
             System.out.println("  Approved: " + review.isApproved());
         }
         System.out.println("========================");
+    }
+    
+    // Clean up resources when the application exits
+    public void cleanup() {
+        Workflow.closeConnection();
     }
 }

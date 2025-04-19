@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<HBox spacing="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" 
+     fx:controller="edu.gmu.cs321.DependentRowController">
+    <VBox spacing="10" HBox.hgrow="ALWAYS">
+        <GridPane hgap="10" vgap="10">
+            <columnConstraints>
+                <ColumnConstraints hgrow="NEVER" minWidth="100" />
+                <ColumnConstraints hgrow="ALWAYS" />
+            </columnConstraints>
+            
+            <Label text="First Name:" GridPane.rowIndex="0" GridPane.columnIndex="0" />
+            <TextField fx:id="txtFirstName" GridPane.rowIndex="0" GridPane.columnIndex="1" />
+            
+            <Label text="Last Name:" GridPane.rowIndex="1" GridPane.columnIndex="0" />
+            <TextField fx:id="txtLastName" GridPane.rowIndex="1" GridPane.columnIndex="1" />
+            
+            <Label text="Date of Birth:" GridPane.rowIndex="2" GridPane.columnIndex="0" />
+            
+            <!-- Improved Date of Birth Input -->
+            <VBox spacing="5" GridPane.rowIndex="2" GridPane.columnIndex="1">
+                <HBox spacing="10">
+                    <ComboBox fx:id="comboMonth" promptText="Month" prefWidth="100" />
+                    <ComboBox fx:id="comboDay" promptText="Day" prefWidth="80" />
+                    <ComboBox fx:id="comboYear" promptText="Year" prefWidth="100" />
+                </HBox>
+                <Label text="Format: Month/Day/Year" style="-fx-font-size: 11; -fx-text-fill: #666666;" />
+                <DatePicker fx:id="datePickerDOB" visible="false" managed="false" />
+            </VBox>
+            
+            <Label text="Relationship:" GridPane.rowIndex="3" GridPane.columnIndex="0" />
+            <ComboBox fx:id="comboRelationship" GridPane.rowIndex="3" GridPane.columnIndex="1" />
+            
+            <Label text="Passport Number:" GridPane.rowIndex="4" GridPane.columnIndex="0" />
+            <HBox spacing="5" GridPane.rowIndex="4" GridPane.columnIndex="1">
+                <TextField fx:id="txtPassportNumber" HBox.hgrow="ALWAYS" />
+                <Label text="Format: Letter followed by 7 digits (e.g., A1234567)" 
+                       style="-fx-font-size: 11; -fx-text-fill: #666666; -fx-padding: 5 0 0 0;" />
+            </HBox>
+        </GridPane>
+    </VBox>
+    
+    <Button fx:id="btnRemove" text="Remove" />
+</HBox>
