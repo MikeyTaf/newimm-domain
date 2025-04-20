@@ -1,17 +1,24 @@
 package edu.gmu.cs321; // Changed to match your project structure
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import java.io.IOException;
-import java.util.List;
 
 public class ReviewerDashboardController {
 
@@ -33,6 +40,9 @@ public class ReviewerDashboardController {
 
     @FXML
     private Label statusLabel;
+
+    @FXML
+    private Label warningLabel;
 
     private ObservableList<PetitionTableItem> petitions = FXCollections.observableArrayList();
 
@@ -80,6 +90,7 @@ public class ReviewerDashboardController {
 
         // Disable view button until selection is made
         viewButton.setDisable(true);
+        warningLabel.setVisible(false);
 
         // Add listener for table selection
         petitionsTable.getSelectionModel().selectedItemProperty().addListener(
@@ -93,33 +104,43 @@ public class ReviewerDashboardController {
 
     private void loadPetitions() {
         petitions.clear();
-
-        // Get pending reviews
+        warningLabel.setVisible(false);
+    
+        Map<String,Integer> passportCount = new HashMap<>();
+        List<String> duplicatePassportNumbers = new ArrayList<>();
+    
         List<Review> pendingReviews = Review.getPendingReviews();
         System.out.println("Found " + pendingReviews.size() + " pending reviews");
-
+    
         for (Review review : pendingReviews) {
             String petitionId = review.getPetitionID();
-
-            // Load petition data
             NewImmFormModel petition = NewImmFormModel.getPetition(petitionId);
             if (petition != null) {
+                String passport = petition.getImmigrant().getPassportNumber();
+                passportCount.put(passport, passportCount.getOrDefault(passport, 0) + 1);
+    
                 String immigrantName = petition.getImmigrant().getFirstName() + " " +
-                        petition.getImmigrant().getLastName();
+                                       petition.getImmigrant().getLastName();
                 String submissionDate = petition.getSubmissionDate().toString();
-
                 petitions.add(new PetitionTableItem(
-                        petitionId,
-                        immigrantName,
-                        submissionDate,
-                        "PENDING"));
-
+                    petitionId, immigrantName, submissionDate, "PENDING"));
                 System.out.println("Added petition: " + petitionId + " - " + immigrantName);
             } else {
                 System.out.println("Could not find petition with ID: " + petitionId);
             }
         }
-
+    
+        duplicatePassportNumbers = passportCount.entrySet().stream()
+            .filter(e -> e.getValue() > 1)
+            .map(Map.Entry::getKey)
+            .collect(Collectors.toList());
+    
+        if (!duplicatePassportNumbers.isEmpty()) {
+            warningLabel.setText("⚠️ Duplicate passport number(s): " +
+                                 String.join(", ", duplicatePassportNumbers));
+            warningLabel.setVisible(true);
+        }
+    
         statusLabel.setText("Loaded " + petitions.size() + " pending petitions");
     }
 

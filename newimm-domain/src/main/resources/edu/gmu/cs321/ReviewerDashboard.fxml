@@ -25,6 +25,7 @@
     <!-- Action Buttons -->
     <HBox spacing="10" alignment="CENTER_RIGHT">
         <Label fx:id="statusLabel"/>
+        <Label fx:id="warningLabel" style="-fx-text-fill: red;" visible="false"/>
         <Region HBox.hgrow="ALWAYS"/>
         <Button fx:id="refreshButton" text="Refresh" onAction="#handleRefresh"/>
         <Button fx:id="viewButton" text="View Details" onAction="#handleView"/>
