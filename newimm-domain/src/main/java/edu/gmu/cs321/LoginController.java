@@ -1,4 +1,3 @@
-// src/main/java/edu/gmu/cs321/LoginController.java
 package edu.gmu.cs321;
 
 import javafx.fxml.FXML;
@@ -47,7 +46,6 @@ public class LoginController {
 
     /**
      * Authenticates the user.
-     * TODO: Replace with real authentication (e.g., database check)
      * @param username The entered username
      * @param password The entered password
      * @return The user's role ("DATA_ENTRY", "REVIEWER", "APPROVER") or null if authentication fails.

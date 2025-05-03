@@ -1,4 +1,3 @@
-// src/main/java/edu/gmu/cs321/Main.java
 package edu.gmu.cs321;
 
 import javafx.application.Application;
@@ -8,7 +7,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.net.URL; // Import URL
+import java.net.URL;
 
 public class Main extends Application {
 

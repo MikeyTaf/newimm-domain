@@ -84,7 +84,6 @@ public class NewImmFormModel {
         }
     }
 
-    // Also modify the static getPetition method:
     public static NewImmFormModel getPetition(String petitionID) {
         return DataStore.getInstance().getPetition(petitionID);
     }
