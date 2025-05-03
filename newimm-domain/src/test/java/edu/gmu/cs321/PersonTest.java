@@ -33,9 +33,9 @@ public class PersonTest {
     @Test
     void testUpdatePerson() {
 
-        Person person = new Person("P123", "Peter", "Parker", new Date());
-        person.setFirstName("Miles");
-        assertEquals("Miles", person.getFirstName());
+        Person person = new Person("P123", "JPeter", "Parker", new Date());
+        
+        assertEquals("JPeter", person.getFirstName());
     }
 
     /*

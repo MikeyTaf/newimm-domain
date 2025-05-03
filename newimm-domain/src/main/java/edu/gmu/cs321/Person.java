@@ -10,7 +10,21 @@ public class Person {
     private Date dob;
 
     // Constructor
+    // Inside Person.java
     public Person(String personID, String firstName, String lastName, Date dob) {
+        if (personID == null || personID.trim().isEmpty()) {
+            throw new IllegalArgumentException("Person ID cannot be null or empty.");
+        }
+        if (firstName == null || firstName.trim().isEmpty()) {
+            throw new IllegalArgumentException("First name cannot be null or empty.");
+        }
+        if (lastName == null || lastName.trim().isEmpty()) {
+            throw new IllegalArgumentException("Last name cannot be null or empty.");
+        }
+        if (dob == null) {
+            throw new IllegalArgumentException("Date of birth cannot be null.");
+        }
+        // Only assign if validation passes
         this.personID = personID;
         this.firstName = firstName;
         this.lastName = lastName;
