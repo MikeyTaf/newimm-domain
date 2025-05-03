@@ -55,7 +55,4 @@ public class DataEntry {
         return false;
     }
 
-    public DataEntry getDataEntry(String dataEntryID) {
-        return null;
-    }
 }
