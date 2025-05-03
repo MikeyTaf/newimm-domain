@@ -73,7 +73,7 @@ public class PetitionDetailController {
 
         System.out.println("PetitionDetailController: Loading petition with ID: " + petitionID);
 
-        // Create a date formatter for MM/dd/yyyy format
+        // Create a date formatter 
         java.text.SimpleDateFormat dateFormat = new java.text.SimpleDateFormat("MM/dd/yyyy");
 
         // Try to load the petition from DataStore

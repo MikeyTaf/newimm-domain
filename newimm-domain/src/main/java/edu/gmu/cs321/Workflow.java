@@ -1,6 +1,6 @@
 package edu.gmu.cs321;
 
-// Import the API using its fully qualified name when needed to avoid conflicts
+
 
 /**
  * Wrapper class for the Workflow API
@@ -10,12 +10,12 @@ public class Workflow {
     private String status;
     private static com.cs321.Workflow workflowAPI;
 
-    // Constructor
+    
     public Workflow(String petitionID, String status) {
         this.petitionID = petitionID;
         this.status = status;
         
-        // Initialize the API if not already done
+        
         if (workflowAPI == null) {
             try {
                 workflowAPI = new com.cs321.Workflow();
@@ -25,10 +25,10 @@ public class Workflow {
             }
         }
         
-        // Add the workflow item to the API
+        
         try {
             if (workflowAPI != null) {
-                // Convert petitionID to integer for the API
+                
                 int formID = Integer.parseInt(petitionID.replaceAll("[^0-9]", ""));
                 String nextStep = convertStatusToNextStep(status);
                 
@@ -43,9 +43,9 @@ public class Workflow {
         }
     }
 
-    // Getters and Setters (unchanged)
+    
     public String getWorkflowID() {
-        return petitionID; // Using petitionID as workflowID for simplicity
+        return petitionID; 
     }
 
     public void setWorkflowID(String workflowID) {
@@ -68,16 +68,16 @@ public class Workflow {
         this.status = status;
     }
 
-    // Update the status of this workflow
+    
     public void updateStatus(String newStatus) {
         System.out.println("Workflow: Updating status for petition " + petitionID +
                 " from " + this.status + " to " + newStatus);
         this.status = newStatus;
         
-        // Update in the API
+        
         try {
             if (workflowAPI != null) {
-                // Convert petitionID to integer for the API
+                
                 int formID = Integer.parseInt(petitionID.replaceAll("[^0-9]", ""));
                 String nextStep = convertStatusToNextStep(newStatus);
                 
@@ -92,7 +92,7 @@ public class Workflow {
         }
     }
 
-    // Get a readable description of the current status
+    
     public String getStatusDescription() {
         switch (status) {
             case "SUBMITTED":
@@ -106,7 +106,7 @@ public class Workflow {
         }
     }
     
-    // Map internal status to API NextStep (instance method)
+    
     private String convertStatusToNextStep(String status) {
         switch (status) {
             case "SUBMITTED":
@@ -115,11 +115,11 @@ public class Workflow {
             case "REJECTED":
                 return "Approve";
             default:
-                return "Review"; // Default to Review for unknown statuses
+                return "Review"; 
         }
     }
     
-    // Static method to get the next petition ID for a given status
+    
     public static String getNextPetitionID(String status) {
         if (workflowAPI == null) {
             try {
@@ -136,7 +136,7 @@ public class Workflow {
             int formID = workflowAPI.GetNextWFItem(nextStep);
             
             if (formID > 0) {
-                // Format the form ID as a petition ID
+                
                 return "PET-" + formID;
             }
         } catch (Exception e) {
@@ -147,7 +147,7 @@ public class Workflow {
         return null;
     }
     
-    // Static helper method for mapping status to NextStep (static version)
+    
     private static String convertStatusToNextStepStatic(String status) {
         switch (status) {
             case "SUBMITTED":
@@ -156,11 +156,11 @@ public class Workflow {
             case "REJECTED":
                 return "Approve";
             default:
-                return "Review"; // Default to Review for unknown statuses
+                return "Review"; 
         }
     }
     
-    // Close the API connection when the application exits
+    
     public static void closeConnection() {
         if (workflowAPI != null) {
             try {
