@@ -34,8 +34,6 @@ public class LoginController {
         String username = usernameField.getText();
         String password = passwordField.getText();
 
-        // --- Authentication Logic ---
-        // TODO: Replace this with actual credential validation (e.g., database lookup)
         String role = authenticate(username, password);
 
         if (role != null) {
@@ -63,7 +61,7 @@ public class LoginController {
         } else if ("approver".equalsIgnoreCase(username) && "pass3".equals(password)) {
              return "APPROVER";
         }
-        return null; // Authentication failed
+        return null; 
     }
 
     private void loadMainApplication(String role) {
@@ -78,10 +76,6 @@ public class LoginController {
             } else if ("REVIEWER".equals(role)) {
                 fxmlFile = "ReviewerDashboard.fxml";
                 windowTitle = "Reviewer Dashboard";
-            } else if ("APPROVER".equals(role)) {
-                 fxmlFile = "ReviewerDashboard.fxml"; // Placeholder - Update if Approver has a different screen
-                 windowTitle = "Approver Dashboard"; // Placeholder
-                 System.out.println("NOTE: Approver role currently directs to ReviewerDashboard. Update fxmlFile in LoginController if needed.");
             } else {
                 statusLabel.setText("Error: Unknown user role.");
                 return;
@@ -97,7 +91,7 @@ public class LoginController {
             Parent root = loader.load();
             Scene scene = new Scene(root);
 
-            // --- Switching the Scene ---
+            
             /*Stage stage = (Stage) loginButton.getScene().getWindow();
             Scene scene = new Scene(root);
             stage.setScene(scene);
