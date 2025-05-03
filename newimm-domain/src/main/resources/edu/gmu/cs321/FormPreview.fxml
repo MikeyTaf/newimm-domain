@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<ScrollPane fitToWidth="true" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.gmu.cs321.FormPreviewController">
+    <content>
+        <VBox spacing="15" style="-fx-padding: 20;">
+            <Label text="Petition Preview - Please Confirm Details" style="-fx-font-size: 18; -fx-font-weight: bold;"/>
+
+            <!-- Immigrant -->
+            <TitledPane text="Immigrant Information" expanded="true" collapsible="false">
+                 <GridPane hgap="10" vgap="5" style="-fx-padding: 10;">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="NEVER" minWidth="120" />
+                        <ColumnConstraints hgrow="ALWAYS" />
+                    </columnConstraints>
+
+                    <Label text="First Name:" GridPane.rowIndex="0" GridPane.columnIndex="0" style="-fx-font-weight: bold;" />
+                    <Label fx:id="lblImmFirstName" GridPane.rowIndex="0" GridPane.columnIndex="1" />
+
+                    <Label text="Last Name:" GridPane.rowIndex="1" GridPane.columnIndex="0" style="-fx-font-weight: bold;" />
+                    <Label fx:id="lblImmLastName" GridPane.rowIndex="1" GridPane.columnIndex="1" />
+
+                    <Label text="Date of Birth:" GridPane.rowIndex="2" GridPane.columnIndex="0" style="-fx-font-weight: bold;" />
+                    <Label fx:id="lblImmDOB" GridPane.rowIndex="2" GridPane.columnIndex="1" />
+
+                    <Label text="Nationality:" GridPane.rowIndex="3" GridPane.columnIndex="0" style="-fx-font-weight: bold;" />
+                    <Label fx:id="lblImmNationality" GridPane.rowIndex="3" GridPane.columnIndex="1" />
+
+                    <Label text="Passport Number:" GridPane.rowIndex="4" GridPane.columnIndex="0" style="-fx-font-weight: bold;" />
+                    <Label fx:id="lblImmPassport" GridPane.rowIndex="4" GridPane.columnIndex="1" />
+                </GridPane>
+            </TitledPane>
+
+            <!-- Dependents Section -->
+            <TitledPane text="Dependents" expanded="true" collapsible="false">
+                <VBox fx:id="dependentsPreviewContainer" spacing="10" style="-fx-padding: 10;" />
+            </TitledPane>
+
+             <HBox spacing="20" alignment="CENTER" style="-fx-padding: 20 0 0 0;">
+                <Button fx:id="btnConfirmSubmit" text="Confirm and Submit" style="-fx-font-size: 14;" onAction="#handleConfirmSubmitAction"/>
+                <Button fx:id="btnGoBack" text="Go Back / Edit" style="-fx-font-size: 14;" onAction="#handleGoBackAction" cancelButton="true"/>
+            </HBox>
+             <Label fx:id="lblPreviewStatus" wrapText="true" />
+
+        </VBox>
+    </content>
+</ScrollPane>

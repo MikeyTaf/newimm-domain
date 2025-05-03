@@ -80,9 +80,8 @@
                 </VBox>
             </TitledPane>
             
-            <!-- Submit Section -->
             <VBox spacing="10" alignment="CENTER">
-                <Button fx:id="btnSubmit" text="Submit Petition" style="-fx-font-size: 14;" />
+                <Button fx:id="btnSubmit" text="Review Petition" style="-fx-font-size: 14;" />
                 <Label fx:id="lblStatus" wrapText="true" />
             </VBox>
         </VBox>
