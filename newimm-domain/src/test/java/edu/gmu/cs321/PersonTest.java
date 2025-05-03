@@ -45,6 +45,6 @@ public class PersonTest {
     void testGetPersonDetails() {
 
         Person person = new Person("P123", "JPeter", "Parker", new Date());
-        assertEquals("Peter", person.getFirstName());
+        assertEquals("JPeter", person.getFirstName());
     }
 }
