@@ -11,9 +11,22 @@ public class Immigrant extends Person {
     public Immigrant(String personID, String firstName, String lastName, Date dob, String immigrantID, String nationality, String passportNumber) {
         
         super(personID, firstName, lastName, dob);  
+        
+        if(immigrantID == null || immigrantID.trim().isEmpty()) {
+            throw new IllegalArgumentException("Immigrant ID cannot be null");
+        }
+
+        if(nationality == null || nationality.trim().isEmpty()) {
+            throw new IllegalArgumentException("Nationaloty cannot be null");
+        }
+
+        if(passportNumber == null || passportNumber.trim().isEmpty()) {
+            throw new IllegalArgumentException("Passprt number cannot be null");
+        }
+
+        this.immigrantID = immigrantID;
         this.nationality = nationality;
         this.passportNumber = passportNumber;
-
     }
 
     // Getters and setters
